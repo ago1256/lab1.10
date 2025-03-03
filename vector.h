@@ -1,27 +1,24 @@
 #ifndef VECTOR_H
 #define VECTOR_H
 
+#include"type_info.h"
+#include"vector_errors.h"
+
 typedef struct {
     void **coord; 
-    int type;
+    int v_count;
+    Type_info* type_info;
+    
 } Vector;
 
-typedef struct {
-    float Re_part;
-    float Im_part;
-} Complex_number;
 
-Vector* init_vector(int type);
+Vector* add_vector(Type_info* type_info, int v_count, void **x, Vector_errors* operationResult);
 
-void add_vector(Vector *vector, void *x, void *y, void *z);
+Vector_errors print_vector(Vector *vector);
 
-void print_vector(Vector *vector);
+Vector_errors summ_vector(const Vector *v1, const Vector *v2, Vector *v_res);
 
-void summ_vector(Vector *v1, Vector *v2, Vector *v_res, int type);
-
-void scalar_multiplication(Vector *v1, Vector *v2, void** res, int type);
-
-void vector_multiplication(Vector *v1, Vector *v2, Vector *v_res, int type);
+Vector_errors scalar_multiplication(const Vector *v1, const Vector *v2, void* res);
 
 void free_vector(Vector *vector);
 
