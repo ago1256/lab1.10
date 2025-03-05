@@ -9,7 +9,7 @@ void float_multiply(const void* arg1, const void* arg2, void* result) {
 }
 
 void float_print(const void* data) {
-    printf("%f", *(const float*)data);
+    printf("%f ", *(const float*)data);
 }
 
 Type_info* Get_float_Type_info() {

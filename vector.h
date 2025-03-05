@@ -2,6 +2,8 @@
 #define VECTOR_H
 
 #include"type_info.h"
+#include"float.h"
+#include"complex.h"
 #include"vector_errors.h"
 
 typedef struct {
@@ -12,11 +14,11 @@ typedef struct {
 } Vector;
 
 
-Vector* add_vector(Type_info* type_info, int v_count, void **x, Vector_errors* operationResult);
+Vector* add_vector(Type_info* type_info, int v_count, void *x, Vector_errors* operationResult);
 
-Vector_errors print_vector(Vector *vector);
+Vector_errors print_vector(const Vector *vector);
 
-Vector_errors summ_vector(const Vector *v1, const Vector *v2, Vector *v_res);
+Vector_errors sum_vector(const Vector *v1, const Vector *v2, Vector *v_res);
 
 Vector_errors scalar_multiplication(const Vector *v1, const Vector *v2, void* res);
 

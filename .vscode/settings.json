@@ -1,6 +1,8 @@
 {
     "files.associations": {
         "array": "c",
-        "string": "c"
+        "string": "c",
+        "vector.h": "c",
+        "type_info.h": "c"
     }
 }

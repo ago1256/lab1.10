@@ -27,7 +27,7 @@ void complex_print(const void* data){
 Type_info* Get_complex_Type_info() {
     if (COMPLEX_TYPE_INFO == NULL) {
         COMPLEX_TYPE_INFO = (Type_info*)malloc(sizeof(Type_info));
-        COMPLEX_TYPE_INFO ->size = sizeof(float);
+        COMPLEX_TYPE_INFO ->size = sizeof(Complex_number);
         COMPLEX_TYPE_INFO ->sum = complex_sum;
         COMPLEX_TYPE_INFO ->multiply = complex_multiply;
         COMPLEX_TYPE_INFO ->print = complex_print;
