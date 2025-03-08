@@ -4,8 +4,8 @@
 #include "type_info.h"
 
 typedef struct {
-    float Re_part;
-    float Im_part;
+    double Re_part;
+    double Im_part;
 
 } Complex_number;
 

@@ -22,6 +22,10 @@ Vector_errors sum_vector(const Vector *v1, const Vector *v2, Vector *v_res);
 
 Vector_errors scalar_multiplication(const Vector *v1, const Vector *v2, void* res);
 
+Vector_errors multiply_by_a_number(const Vector *v1, double k, Vector *v_res);
+
+Vector_errors vector_overwrite(Vector *v1, void* new_coord);
+
 void free_vector(Vector *vector);
 
 #endif 

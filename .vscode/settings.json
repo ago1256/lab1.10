@@ -3,6 +3,10 @@
         "array": "c",
         "string": "c",
         "vector.h": "c",
-        "type_info.h": "c"
+        "type_info.h": "c",
+        "float.h": "c",
+        "typeinfo": "c",
+        "functional": "c",
+        "stdio.h": "c"
     }
 }

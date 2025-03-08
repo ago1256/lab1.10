@@ -1,11 +1,9 @@
 #include "complex.h"
 
 void complex_sum(const void* arg1, const void* arg2, void* result){
-        Complex_number *x = malloc(sizeof(Complex_number));
+        Complex_number *x = (Complex_number*)result;
         x->Re_part = ((Complex_number *)arg1)->Re_part + ((Complex_number *)arg2)->Re_part;
         x->Im_part = ((Complex_number *)arg1)->Im_part + ((Complex_number *)arg2)->Im_part;
-        result = x;
-        free(x);
     }
 
 void complex_multiply(const void* arg1, const void* arg2, void* result){
