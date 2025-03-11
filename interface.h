@@ -3,5 +3,5 @@
 
 #include "vector.h"
 
-void enter();
+int enter();
 #endif

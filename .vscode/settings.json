@@ -7,6 +7,11 @@
         "float.h": "c",
         "typeinfo": "c",
         "functional": "c",
-        "stdio.h": "c"
+        "stdio.h": "c",
+        "tuple": "c",
+        "type_traits": "c",
+        "utility": "c",
+        "algorithm": "c",
+        "vector_errors.h": "c"
     }
 }
