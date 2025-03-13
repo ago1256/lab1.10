@@ -12,7 +12,7 @@ void double_print(const void* data) {
     printf("%.3lf ", *(const double*)data);
 }
 
-Type_info* Get_double_Type_info() {
+Type_info* Get_double_type_info() {
     if (DOUBLE_TYPE_INFO == NULL) {
         DOUBLE_TYPE_INFO = (Type_info*)malloc(sizeof(Type_info));
         DOUBLE_TYPE_INFO ->size = sizeof(double);

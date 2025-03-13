@@ -15,7 +15,7 @@ void complex_sum(const void* arg1, const void* arg2, void* result);
 void complex_multiply(const void* arg1, const void* arg2, void* result);
 void complex_print(const void* data);
 
-Type_info* Get_complex_Type_info();
+Type_info* Get_complex_type_info();
 
 #endif 
 

@@ -22,6 +22,30 @@ Vector* add_vector(Type_info* type_info, size_t v_count, void *x, Vector_errors*
 }
 
 
+Vector** add_vector_to_array(Vector** vectors, size_t* vector_count, Vector* new_vector) {
+    vectors = realloc(vectors, (*vector_count + 1) * sizeof(Vector*));
+    if (vectors == NULL) {
+        return NULL;
+    }
+    vectors[*vector_count] = new_vector;
+    (*vector_count)++;
+    return vectors;
+}
+
+Vector** remove_vector_from_array(Vector** vectors, size_t* vector_count, int index) {
+
+    free_vector(vectors[index]); 
+    for (size_t i = index; i < *vector_count - 1; i++) {
+        vectors[i] = vectors[i + 1];
+    }
+    vectors = realloc(vectors, (*vector_count - 1) * sizeof(Vector*));
+    if (vectors == NULL){
+        return NULL;
+    }
+    (*vector_count)--; 
+    return vectors;
+}
+
 Vector_errors sum_vector(const Vector* v1, const Vector* v2, Vector* v_res){
     if (v1 == NULL || v2 == NULL || v_res == NULL) return VECTOR_NOT_DEFINED;
     if (v1->type_info != v2->type_info || v1->type_info != v_res->type_info) return INCOMPATIBLE_VECTOR_TYPES;
@@ -55,7 +79,7 @@ Vector_errors scalar_multiplication(const Vector *v1, const Vector *v2, void* re
 
 Vector_errors multiply_by_a_number(const Vector *v1, double k, Vector *v_res){
     if (v1 == NULL || v_res == NULL) return VECTOR_NOT_DEFINED;
-    if(v1->type_info == Get_complex_Type_info()) return INCOMPATIBLE_VECTOR_TYPES;
+    if(v1->type_info == Get_complex_type_info()) return INCOMPATIBLE_VECTOR_TYPES;
     for(int i=0; i<v1->v_count; i++){
         v1->type_info->multiply(
             (char*)v1->coord+ i * v1->type_info->size,
@@ -65,19 +89,18 @@ Vector_errors multiply_by_a_number(const Vector *v1, double k, Vector *v_res){
     return VECTOR_OPERATION_OK;
 }
 
-Vector_errors vector_overwrite(Type_info* new_type_info, Vector *v1, size_t new_v_count, void *new_coord){
-    if (v1 == NULL || new_coord == NULL) return VECTOR_NOT_DEFINED;
-    free(v1->coord);
+Vector_errors vector_overwrite(Type_info* new_type_info, Vector *v1, size_t *new_v_count, void *new_coord) {
+    if (v1 == NULL || new_coord == NULL || new_v_count == NULL) return VECTOR_NOT_DEFINED;
     v1->type_info = new_type_info;
-    v1->v_count = new_v_count;
-    v1->coord =  malloc(new_type_info->size * v1->v_count);
-    if (v1->coord == NULL) return VECTOR_NOT_DEFINED;
-    memcpy(v1->coord, new_coord, new_v_count * new_type_info->size);
+    void *coord = realloc(v1->coord, new_type_info->size * (*new_v_count));
+    if (coord == NULL) {
+        return VECTOR_NOT_DEFINED; 
+    }
+    v1->coord = coord;
+    v1->v_count = *new_v_count;
+    memcpy(v1->coord, new_coord, v1->v_count * new_type_info->size);
     return VECTOR_OPERATION_OK;
 }
-
-
-
 
 Vector_errors print_vector(const Vector* vector) {
     if (vector == NULL) return VECTOR_NOT_DEFINED;

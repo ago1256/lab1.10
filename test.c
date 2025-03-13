@@ -13,10 +13,10 @@ void test_double_sum(){
 
     Vector_errors operation_result;
 
-    Vector* v1 = add_vector(Get_double_Type_info(), 4, a1, &operation_result);
-    Vector* v2 = add_vector(Get_double_Type_info(), 4, a2, &operation_result);
-    Vector* v_res_sum = add_vector(Get_double_Type_info(), 4, NULL, &operation_result);
-    Vector* v_mult_numb_res = add_vector(Get_double_Type_info(), 4, NULL, &operation_result);
+    Vector* v1 = add_vector(Get_double_type_info(), 4, a1, &operation_result);
+    Vector* v2 = add_vector(Get_double_type_info(), 4, a2, &operation_result);
+    Vector* v_res_sum = add_vector(Get_double_type_info(), 4, NULL, &operation_result);
+    Vector* v_mult_numb_res = add_vector(Get_double_type_info(), 4, NULL, &operation_result);
 
     assert(operation_result == VECTOR_OPERATION_OK);
     assert(v1 != NULL && v2 != NULL && v_res_sum  != NULL);
@@ -39,8 +39,8 @@ void test_double_scalar_multiply(){
 
     Vector_errors operation_result;
 
-    Vector* v1 = add_vector(Get_double_Type_info(), 4, a1, &operation_result);
-    Vector* v2 = add_vector(Get_double_Type_info(), 4, a2, &operation_result);
+    Vector* v1 = add_vector(Get_double_type_info(), 4, a1, &operation_result);
+    Vector* v2 = add_vector(Get_double_type_info(), 4, a2, &operation_result);
 
     assert(operation_result == VECTOR_OPERATION_OK);
     assert(v1 != NULL && v2 != NULL);
@@ -60,8 +60,8 @@ void test_double_multiply_by_a_number(){
 
     Vector_errors operation_result;
 
-    Vector* v1 = add_vector(Get_double_Type_info(), 4, a1, &operation_result);
-    Vector* v_mult_numb_res = add_vector(Get_double_Type_info(), 4, NULL, &operation_result);
+    Vector* v1 = add_vector(Get_double_type_info(), 4, a1, &operation_result);
+    Vector* v_mult_numb_res = add_vector(Get_double_type_info(), 4, NULL, &operation_result);
     assert(operation_result == VECTOR_OPERATION_OK);
     assert(v1 != NULL);
 
@@ -82,12 +82,13 @@ void test_double_vector_overwrite(){
 
     Vector_errors operation_result;
 
-    Vector* v1 = add_vector(Get_double_Type_info(), 4, a1, &operation_result);
+    Vector* v1 = add_vector(Get_double_type_info(), 4, a1, &operation_result);
     assert(operation_result == VECTOR_OPERATION_OK);
     assert(v1 != NULL);
     printf("проверка изменения координат вектора\n");
     double overwrite_coord[] = {1.0, -2.5, 4.33, 5.0};
-    vector_overwrite(Get_double_Type_info(),v1,4, &overwrite_coord);
+    size_t count=5;
+    vector_overwrite(Get_double_type_info(),v1, &count, &overwrite_coord);
     for (int i = 0; i < 4; i++) {
         printf("Искомое значение: %lf, Полученное значение: %lf\n", overwrite_coord[i], ((double*)v1->coord)[i]);
         assert(fabs(((double*)v1->coord)[i] - overwrite_coord[i]) < EPS);
@@ -102,9 +103,9 @@ void test_complex_sum(){
     
     Vector_errors operation_result;
 
-    Vector* v1 = add_vector(Get_complex_Type_info(), 3, a1, &operation_result);
-    Vector* v2 = add_vector(Get_complex_Type_info(), 3, a2, &operation_result);
-    Vector* v_res_sum = add_vector(Get_complex_Type_info(), 3, NULL, &operation_result);
+    Vector* v1 = add_vector(Get_complex_type_info(), 3, a1, &operation_result);
+    Vector* v2 = add_vector(Get_complex_type_info(), 3, a2, &operation_result);
+    Vector* v_res_sum = add_vector(Get_complex_type_info(), 3, NULL, &operation_result);
 
     assert(operation_result == VECTOR_OPERATION_OK);
     assert(v1 != NULL && v2 != NULL && v_res_sum  != NULL);
@@ -134,8 +135,8 @@ void test_complex_scalar_multiply(){
 
     Vector_errors operation_result;
 
-    Vector* v1 = add_vector(Get_complex_Type_info(), 3, a1, &operation_result);
-    Vector* v2 = add_vector(Get_complex_Type_info(), 3, a2, &operation_result);
+    Vector* v1 = add_vector(Get_complex_type_info(), 3, a1, &operation_result);
+    Vector* v2 = add_vector(Get_complex_type_info(), 3, a2, &operation_result);
 
     assert(operation_result == VECTOR_OPERATION_OK);
     assert(v1 != NULL && v2 != NULL);
@@ -156,14 +157,15 @@ void test_complex_vector_overwrite(){
     Complex_number a1[] = {{2.0, -3.0}, {1.2, -8.5}, {-4.5, -1.9}};
 
     Vector_errors operation_result;
-    Vector* v1 = add_vector(Get_complex_Type_info(), 3, a1, &operation_result);
+    Vector* v1 = add_vector(Get_complex_type_info(), 3, a1, &operation_result);
 
     assert(operation_result == VECTOR_OPERATION_OK);
     assert(v1 != NULL);
 
     printf("проверка изменения координат вектора\n");
     Complex_number need_overwrite_coord[] = {{3.0, -12.6}, {5.9, -1.7}, {-11.3, 1.2}};
-    vector_overwrite(Get_complex_Type_info(), v1, 3, &need_overwrite_coord);
+    size_t count = 3;
+    vector_overwrite(Get_complex_type_info(), v1, &count, &need_overwrite_coord);
     Complex_number* res_overwrite_coord = (Complex_number*) v1->coord;
     for (int i=0; i<3; i++) {
         printf("Искомое значение:");
@@ -181,7 +183,7 @@ void test_complex_vector_overwrite(){
 
 void test_empty_vector() {
     Vector_errors operation_result;
-    Vector* v = add_vector(Get_double_Type_info(), 0, 0, &operation_result);
+    Vector* v = add_vector(Get_double_type_info(), 0, 0, &operation_result);
     assert(operation_result == VECTOR_OPERATION_OK);
     assert(v != NULL);
     assert(v->v_count == 0);
@@ -194,9 +196,9 @@ void test_error_different_lenght(){
 
     Vector_errors operation_result;
 
-    Vector* v1 = add_vector(Get_double_Type_info(), 4, a1, &operation_result);
-    Vector* v2 = add_vector(Get_double_Type_info(), 2, a2, &operation_result);
-    Vector* v_res_sum = add_vector(Get_double_Type_info(), 2, NULL, &operation_result);
+    Vector* v1 = add_vector(Get_double_type_info(), 4, a1, &operation_result);
+    Vector* v2 = add_vector(Get_double_type_info(), 2, a2, &operation_result);
+    Vector* v_res_sum = add_vector(Get_double_type_info(), 2, NULL, &operation_result);
 
     assert(operation_result == VECTOR_OPERATION_OK);
     assert(v1 != NULL && v2 != NULL && v_res_sum  != NULL);
@@ -217,9 +219,9 @@ void test_error_different_types(){
 
     Vector_errors operation_result;
 
-    Vector* v1 = add_vector(Get_double_Type_info(), 4, a1, &operation_result);
-    Vector* v2 = add_vector(Get_complex_Type_info(), 3, a2, &operation_result);
-    Vector* v_res_sum = add_vector(Get_complex_Type_info(), 3, NULL, &operation_result);
+    Vector* v1 = add_vector(Get_double_type_info(), 4, a1, &operation_result);
+    Vector* v2 = add_vector(Get_complex_type_info(), 3, a2, &operation_result);
+    Vector* v_res_sum = add_vector(Get_complex_type_info(), 3, NULL, &operation_result);
 
     assert(operation_result == VECTOR_OPERATION_OK);
     assert(v1 != NULL && v2 != NULL && v_res_sum  != NULL);
