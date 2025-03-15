@@ -66,7 +66,8 @@ void test_double_multiply_by_a_number(){
     assert(v1 != NULL);
 
     printf("проверка умножения вектора на число\n");
-    double scalar = 4.0;
+    double scalar_double = 4;
+    void* scalar = &scalar_double;
     multiply_by_a_number(v1, scalar, v_mult_numb_res);
     double need_mult_numb_res[] = {5.2, -8.0, 14.0, 19.2};
     for (int i = 0; i < 4; i++) {
@@ -151,6 +152,33 @@ void test_complex_scalar_multiply(){
     assert(fabs(multiply_res.Im_part - need_multiply.Im_part) < EPS);
     free_vector(v1);
     free_vector(v2);
+}
+
+void test_complex_multiply_by_a_number(){
+     Complex_number a1[] = {{2.0, -3.0}, {1.2, -8.5}, {-4.5, -1.9}};
+
+    Vector_errors operation_result;
+
+    Vector* v1 = add_vector(Get_complex_type_info(), 3, a1, &operation_result);
+    Vector* v_mult_numb_res = add_vector(Get_complex_type_info(), 3, NULL, &operation_result);
+    assert(operation_result == VECTOR_OPERATION_OK);
+    assert(v1 != NULL);
+
+    printf("проверка умножения вектора на число\n");
+    Complex_number scalar_complex = {3, 0};
+    void* scalar = &scalar_complex;
+    multiply_by_a_number(v1, scalar, v_mult_numb_res);
+    Complex_number need_mult_numb_res[] = {{6.0, -9.0}, {3.6, -25.5},{-13.5, -5.7}};
+    Complex_number* res_coord = (Complex_number*)  v_mult_numb_res->coord;
+    for (int i=0; i<3; i++) {
+        printf("Искомое значение:");
+        v1->type_info->print(&need_mult_numb_res[i]);
+        printf(" Полученное значение: ");
+        v_mult_numb_res->type_info->print((char*)v_mult_numb_res->coord + i * v_mult_numb_res->type_info->size);
+        printf("\n");
+        assert(fabs(res_coord[i].Re_part - need_mult_numb_res[i].Re_part) < EPS);
+        assert(fabs(res_coord[i].Im_part - need_mult_numb_res[i].Im_part) < EPS);
+        }
 }
 
 void test_complex_vector_overwrite(){
@@ -242,6 +270,7 @@ int main(){
     test_double_vector_overwrite();
     test_complex_sum();
     test_complex_scalar_multiply();
+    test_complex_multiply_by_a_number();
     test_complex_vector_overwrite();
     test_empty_vector();
     test_error_different_lenght();

@@ -13,6 +13,7 @@ void test_double_vector_overwrite();
 
 void test_complex_sum();
 void test_complex_scalar_multiply();
+void test_complex_multiply_by_a_number();
 void test_complex_vector_overwrite();
 
 void test_empty_vector();

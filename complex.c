@@ -8,6 +8,8 @@ void complex_sum(const void* arg1, const void* arg2, void* result){
 
 void complex_multiply(const void* arg1, const void* arg2, void* result){
     Complex_number *res_complex = (Complex_number*)result;
+    res_complex->Re_part = 0;
+    res_complex->Im_part = 0;
     res_complex->Re_part += ((Complex_number *)arg1)->Re_part * ((Complex_number *)arg2)->Re_part -\
     ((Complex_number *)arg1)->Im_part * ((Complex_number *)arg2)->Im_part;
 

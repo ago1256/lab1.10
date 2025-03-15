@@ -18,8 +18,8 @@ int enter() {
         printf(" 1 - добавить вектор в массив\n");
         printf(" 2 - векторная сумма\n");
         printf(" 3 - скалярное произведение\n");
-        printf(" 4 - умножение координат вектора на скаляр\n");
-        printf(" 5 - изменение координат вектора\n");
+        printf(" 4 - умножение координат вектора на число\n");
+        printf(" 5 - изменение вектора\n");
         printf(" 6 - вывести массив векторов\n");
         printf(" 7 - удалить вектор из массива по индексу\n");
         printf(" 8 - выход\n");
@@ -106,15 +106,26 @@ int enter() {
                 int index1;
                 scanf("%d", &index1);
                 index1-=1;
-                double k;
                 printf("Введите скаляр: ");
-                scanf("%lf", &k);
+                void* k = NULL;
+                if(vectors[index1]->type_info == Get_double_type_info()){
+                double* k_double = malloc(sizeof(double));
+                scanf("%lf", k_double);
+                k = k_double;
+                }
+                if(vectors[index1]->type_info == Get_complex_type_info()){
+                    Complex_number* k_complex = malloc(sizeof(Complex_number));
+                    scanf("%lf %lf", &k_complex->Re_part, &k_complex->Im_part);
+                    k = k_complex;
+                }
                 Vector* v_mult_numb_res= add_vector(vectors[index1]->type_info, vectors[index1]->v_count, NULL, &operation_result);
                 if(error_detection(multiply_by_a_number(vectors[index1], k, v_mult_numb_res))!= VECTOR_OPERATION_OK){
                     break;
                 }
                 else{
-                    printf("Вектор %d умноженный на %lf: ", index1+1, k);
+                    printf("Вектор %d умноженный на ", index1+1);
+                    v_mult_numb_res->type_info->print(k);
+                    printf(": ");
                     print_vector(v_mult_numb_res);
                 }
                 free(v_mult_numb_res);

@@ -77,13 +77,12 @@ Vector_errors scalar_multiplication(const Vector *v1, const Vector *v2, void* re
     return VECTOR_OPERATION_OK;
 }
 
-Vector_errors multiply_by_a_number(const Vector *v1, double k, Vector *v_res){
+Vector_errors multiply_by_a_number(const Vector *v1, void* k, Vector *v_res){
     if (v1 == NULL || v_res == NULL) return VECTOR_NOT_DEFINED;
-    if(v1->type_info == Get_complex_type_info()) return INCOMPATIBLE_VECTOR_TYPES;
     for(int i=0; i<v1->v_count; i++){
         v1->type_info->multiply(
             (char*)v1->coord+ i * v1->type_info->size,
-            (char*)&k,
+            k,
             (char*)v_res->coord + i * v1->type_info->size);
     }
     return VECTOR_OPERATION_OK;
